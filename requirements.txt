@@ -1,0 +1,11 @@
+requests==2.32.3  # https://github.com/psf/requests
+beautifulsoup4==4.13.3  # https://pypi.org/project/beautifulsoup4/
+xmltodict==0.14.2  # https://github.com/martinblech/xmltodict
+celery[redis]==5.4.0  # https://github.com/celery/celery
+flower==2.0.1  # https://github.com/mher/flower
+fake-useragent==2.0.3  # https://github.com/fake-useragent/fake-useragent
+
+pytest==8.3.5  # https://github.com/pytest-dev/pytest
+pytest-dependency==0.6.0  # https://github.com/RKrahl/pytest-dependency
+pytest-mock==3.14.0  # https://github.com/pytest-dev/pytest-mock/
+validators==0.34.0  # https://github.com/python-validators/validators

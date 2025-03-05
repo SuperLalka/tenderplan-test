@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+
+
+celery -A app.celery_app worker -l INFO -Q celery --autoscale 10,0

@@ -1,0 +1,27 @@
+version: '3'
+
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: ./compose/Dockerfile
+    container_name: tt_test_python
+    restart: no
+    depends_on:
+      - redis
+    command: bash -c "pytest -s"
+
+  redis:
+    image: redis:6
+    container_name: tt_test_redis
+    restart: always
+
+  celeryworker:
+    <<: *app
+    container_name: tt_test_celeryworker
+    restart: always
+    ports: []
+    depends_on:
+      - redis
+    command: /start-celeryworker

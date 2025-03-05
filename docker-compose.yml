@@ -1,0 +1,47 @@
+version: '3'
+
+volumes:
+  tt_redis_volume: {}
+
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: ./compose/Dockerfile
+    container_name: tt_python
+    restart: no
+    depends_on:
+      - redis
+    command: python "main.py"
+
+  redis:
+    image: redis:6
+    container_name: tt_redis
+    restart: always
+    volumes:
+      - tt_redis_volume:/data
+
+  celeryworker:
+    <<: *app
+    container_name: tt_celeryworker
+    restart: always
+    ports: []
+    depends_on:
+      - redis
+    command: /start-celeryworker
+
+  flower:
+    <<: *app
+    container_name: tt_celeryflower
+    restart: always
+    ports:
+      - '5555:5555'
+    depends_on:
+      - redis
+      - celeryworker
+    environment:
+      CELERY_BROKER_URL: redis://redis
+      CELERY_FLOWER_USER: flower
+      CELERY_FLOWER_PASSWORD: flower
+    command: /start-flower
